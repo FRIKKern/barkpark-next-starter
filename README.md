@@ -7,6 +7,11 @@ workspace), and go.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/FRIKKern/barkpark-next-starter&env=NEXT_PUBLIC_API_URL,BARKPARK_READ_TOKEN,BARKPARK_WORKSPACE,BARKPARK_PROJECT,BARKPARK_DATASET&envDescription=Point%20at%20your%20Barkpark%20instance%20(see%20the%20README)&project-name=barkpark-next-app&repository-name=barkpark-next-app)
 
+> 🤖 **Agent-ready.** [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) make any AI coding agent a
+> Barkpark power user *inside this repo* — efficient `bp` CLI use (discover the API, batch atomic
+> mutations, folder-scoped commands), the task queue, content modelling, and the Next ↔ Barkpark
+> wiring (scoped client, webhook revalidation, live updates).
+
 ---
 
 ## Quick start (local)
