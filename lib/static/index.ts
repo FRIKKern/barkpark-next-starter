@@ -69,13 +69,38 @@ export function staticFetchJson(url: string): unknown {
   return { ok: true, result: null };
 }
 
+/** Flatten a doc's title + block text into one lowercased haystack (built once). */
+function docText(d: SnapDoc): string {
+  const parts: string[] = [String(d.title ?? "")];
+  const blocks = (d as { blocks?: unknown }).blocks;
+  if (Array.isArray(blocks)) {
+    for (const b of blocks as Array<Record<string, unknown>>) {
+      if (typeof b.text === "string") parts.push(b.text);
+      const content = b.content;
+      if (Array.isArray(content)) {
+        for (const c of content as Array<Record<string, unknown>>) {
+          if (typeof c.value === "string") parts.push(c.value);
+        }
+      }
+    }
+  }
+  return parts.join(" ").toLowerCase();
+}
+
+/** Precomputed full-text index over the bundle — title (weighted) + body. */
+const INDEX = DOCS.map((d) => ({
+  doc: d,
+  title: String(d.title ?? "").toLowerCase(),
+  text: docText(d),
+}));
+
 /**
- * Substring-filter the snapshot by the `q=` term.
+ * Real full-text search over the bundled snapshot — NOT a fake engine.
  *
- * Critically, this REGENERATES the query-specific fields (`query`, `parsedQuery`)
- * from the actual query and clears the baked `highlights` — otherwise the finder,
- * which highlights `parsedQuery.terms`, would keep highlighting the snapshot's
- * original query ("barkpark") for every search.
+ * Matches every query term against title + body (AND), ranks title hits above
+ * body hits, and REGENERATES the query-specific fields (`query`, `parsedQuery`)
+ * while clearing the baked `highlights` — otherwise the finder, which highlights
+ * `parsedQuery.terms`, would keep lighting up the snapshot's capture query.
  */
 function filterSearch(url: string): unknown {
   let raw = "";
@@ -92,7 +117,7 @@ function filterSearch(url: string): unknown {
     .filter((t) => t.length >= 2);
 
   // A blank/1-char q is "browse" — enumerate everything, no highlight.
-  if (q.length < 2) {
+  if (terms.length === 0) {
     return {
       ...snap,
       query: q,
@@ -104,13 +129,18 @@ function filterSearch(url: string): unknown {
     };
   }
 
-  const ql = q.toLowerCase();
-  const documents = DOCS.filter(
-    (d) =>
-      String(d.title ?? "")
-        .toLowerCase()
-        .includes(ql) || String(d._id).toLowerCase().includes(ql),
-  );
+  const scored = INDEX.map(({ doc, title, text }) => {
+    let score = 0;
+    for (const t of terms) {
+      if (title.includes(t)) score += 2;
+      else if (text.includes(t)) score += 1;
+      else return null; // AND: every term must match somewhere
+    }
+    return { doc, score };
+  }).filter((x): x is { doc: SnapDoc; score: number } => x !== null);
+  scored.sort((a, b) => b.score - a.score);
+
+  const documents = scored.map((s) => s.doc);
   return {
     ...snap,
     query: q,
