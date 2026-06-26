@@ -1,6 +1,7 @@
 import "server-only";
 import searchSnapshot from "./search.json";
 import graphSnapshot from "./graph.json";
+import { words, matchTerm, MIN_SCORE } from "@/lib/fuzzy";
 
 /**
  * Static demo mode.
@@ -87,12 +88,50 @@ function docText(d: SnapDoc): string {
   return parts.join(" ").toLowerCase();
 }
 
-/** Precomputed full-text index over the bundle — title (weighted) + body. */
-const INDEX = DOCS.map((d) => ({
-  doc: d,
-  title: String(d.title ?? "").toLowerCase(),
-  text: docText(d),
-}));
+/**
+ * Precomputed search index over the bundle — title + body, plus tokenised word
+ * lists for typo-tolerant matching via the SAME keyboard-aware fuzzy matcher the
+ * live finder highlights with, so a misspelling behaves like Indx fuzzy recall.
+ */
+const INDEX = DOCS.map((d) => {
+  const title = String(d.title ?? "").toLowerCase();
+  const text = docText(d);
+  return {
+    doc: d,
+    title,
+    text,
+    titleWords: words(title),
+    bodyWords: Array.from(new Set(words(text))),
+  };
+});
+
+type IndexEntry = (typeof INDEX)[number];
+
+/** Best fuzzy score of a term against a word list (0 = no usable match). */
+function fuzzyBest(term: string, ws: string[]): number {
+  let best = 0;
+  for (const w of ws) {
+    const s = matchTerm(term, w).score;
+    if (s > best) best = s;
+    if (best >= 0.999) break;
+  }
+  return best;
+}
+
+/**
+ * Score one query term against one doc. Exact substring wins (title > body);
+ * otherwise fuzzy word matching (>= MIN_SCORE) so typos still hit. Returns 0 when
+ * the term matches nowhere — the caller then drops the doc (AND semantics).
+ */
+function termScore(term: string, e: IndexEntry): number {
+  if (e.title.includes(term)) return 3;
+  if (e.text.includes(term)) return 2;
+  const tf = fuzzyBest(term, e.titleWords);
+  if (tf >= MIN_SCORE) return 1 + tf;
+  const bf = fuzzyBest(term, e.bodyWords);
+  if (bf >= MIN_SCORE) return 0.5 + bf;
+  return 0;
+}
 
 /**
  * Real full-text search over the bundled snapshot — NOT a fake engine.
@@ -129,14 +168,14 @@ function filterSearch(url: string): unknown {
     };
   }
 
-  const scored = INDEX.map(({ doc, title, text }) => {
+  const scored = INDEX.map((e) => {
     let score = 0;
     for (const t of terms) {
-      if (title.includes(t)) score += 2;
-      else if (text.includes(t)) score += 1;
-      else return null; // AND: every term must match somewhere
+      const s = termScore(t, e);
+      if (s === 0) return null; // AND: every term must match (exact or fuzzy)
+      score += s;
     }
-    return { doc, score };
+    return { doc: e.doc, score };
   }).filter((x): x is { doc: SnapDoc; score: number } => x !== null);
   scored.sort((a, b) => b.score - a.score);
 

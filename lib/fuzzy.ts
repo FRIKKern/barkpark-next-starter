@@ -237,7 +237,7 @@ export type MatchKind = "exact" | "inflection" | "verbatim" | "corrected";
 
 /** Score one query `term` against one `word`: a continuous quality plus the
  * KIND of match (so the renderer knows whether to ghost any letters). */
-function matchTerm(term: string, word: string): { score: number; kind: MatchKind } {
+export function matchTerm(term: string, word: string): { score: number; kind: MatchKind } {
   const t = fold(term);
   const w = fold(word);
   if (t.length < 2 || w.length < 2) return { score: 0, kind: "corrected" };
