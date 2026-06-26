@@ -5,7 +5,7 @@ a headless CMS. It's the Barkpark **content finder** — full-text search, a rea
 graph — wired to one Barkpark **project**. Clone it, bind it to a project (in the default
 workspace), and go.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/FRIKKern/barkpark-next-starter&env=NEXT_PUBLIC_API_URL,BARKPARK_READ_TOKEN,BARKPARK_WORKSPACE,BARKPARK_PROJECT,BARKPARK_DATASET&envDescription=Point%20at%20your%20Barkpark%20instance%20(see%20the%20README)&project-name=barkpark-next-app&repository-name=barkpark-next-app)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/FRIKKern/barkpark-next-starter&env=BARKPARK_PROJECT,BARKPARK_READ_TOKEN&envDescription=Your%20Barkpark%20project%20slug%20%2B%20a%20read%20token.%20URL%20defaults%20to%20api.barkpark.cloud%2C%20workspace%3Ddefault%2C%20dataset%3Dproduction.&envLink=https://github.com/FRIKKern/barkpark-next-starter%23deploy-vercel&project-name=barkpark-next-app&repository-name=barkpark-next-app)
 
 > 🤖 **Agent-ready.** [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) make any AI coding agent a
 > Barkpark power user *inside this repo* — efficient `bp` CLI use (discover the API, batch atomic
@@ -60,20 +60,29 @@ The app reads its project from these (written to `.env.local`; the token is **se
 
 | Var | Purpose |
 |---|---|
-| `NEXT_PUBLIC_API_URL` | Barkpark base URL |
-| `BARKPARK_READ_TOKEN` | server-side read token (Bearer on every SSR fetch) |
-| `BARKPARK_WORKSPACE` · `BARKPARK_PROJECT` | the workspace/project the app reads (`default` / your name) |
-| `BARKPARK_DATASET` | dataset (`production`) |
+| Var | Purpose | Default |
+|---|---|---|
+| `BARKPARK_PROJECT` | the project the app reads | — (**required**) |
+| `BARKPARK_READ_TOKEN` | server-side read token (Bearer on every SSR fetch) | — (required for scoped reads) |
+| `NEXT_PUBLIC_API_URL` | Barkpark base URL | `https://api.barkpark.cloud` on Vercel, `http://localhost:4000` locally |
+| `BARKPARK_WORKSPACE` | workspace | `default` |
+| `BARKPARK_DATASET` | dataset | `production` |
 
-`lib/barkpark-client.ts` (the reader) and `lib/bp-fetch.ts` (search / `SCOPE`) both read these and
-scope every request to `/w/<workspace>/p/<project>/…`.
+`lib/barkpark-client.ts` (the reader) and `lib/bp-fetch.ts` (search / `SCOPE`) read these and scope
+every request to `/w/<workspace>/p/<project>/…`.
 
 ## Deploy (Vercel)
 
-Click **Deploy** above (or `vercel --prod`) and set the env vars to your **cloud** Barkpark.
-This starter reads content **live** from Barkpark — there's no bundled content — so a deployment
-needs a reachable Barkpark + a read token. *(For the Deploy button to work for others, this repo
-must be public.)*
+Click **Deploy** above (or `vercel --prod`). Because the non-secret vars have built-in defaults
+(`api.barkpark.cloud` · `default` · `production`), the deploy form asks for only the **two that are
+genuinely yours** — `BARKPARK_PROJECT` and `BARKPARK_READ_TOKEN`.
+
+> Vercel's deploy form can't be pre-populated with default *values* (the deploy URL only controls
+> *which* vars it prompts for) — so two fields is the floor. Self-hosting Barkpark? Set
+> `NEXT_PUBLIC_API_URL` in **Project ▸ Settings ▸ Environment Variables** after deploy.
+
+This starter reads content **live** from Barkpark (no bundled content), so a deployment needs a
+reachable Barkpark + a read token. *(For the Deploy button to work for others, this repo is public.)*
 
 ## What's inside
 

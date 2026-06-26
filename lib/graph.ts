@@ -25,7 +25,8 @@ import { bpFetchJson, BpUpstreamError, humanUpstreamMessage } from "@/lib/bp-fet
 /** Cache tag for the graph Data Cache — `revalidateTag(GRAPH_TAG)` busts it. */
 export const GRAPH_TAG = "graph";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ??
+  (process.env.VERCEL ? "https://api.barkpark.cloud" : "http://localhost:4000");
 /** Prefer this node id as the root when it exists, regardless of degree. */
 const PREFERRED_ROOT = "barkpark";
 

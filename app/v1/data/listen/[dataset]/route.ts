@@ -20,7 +20,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const apiUrl = (
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"
+  process.env.NEXT_PUBLIC_API_URL ??
+  (process.env.VERCEL ? "https://api.barkpark.cloud" : "http://localhost:4000")
 ).replace(/\/+$/, "");
 const token = process.env.BARKPARK_READ_TOKEN;
 

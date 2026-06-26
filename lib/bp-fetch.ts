@@ -38,7 +38,8 @@ const bpDispatcher = new Agent({
  */
 
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  process.env.NEXT_PUBLIC_API_URL ??
+  (process.env.VERCEL ? "https://api.barkpark.cloud" : "http://localhost:4000");
 const TOKEN = process.env.BARKPARK_READ_TOKEN;
 
 /**
@@ -46,10 +47,10 @@ const TOKEN = process.env.BARKPARK_READ_TOKEN;
  * When BARKPARK_WORKSPACE + BARKPARK_PROJECT are set, scoped reads target
  * `/w/<ws>/p/<project>/...`; unset → the flat `/v1/...` path (the token's home).
  */
-export const SCOPE =
-  process.env.BARKPARK_WORKSPACE && process.env.BARKPARK_PROJECT
-    ? `/w/${process.env.BARKPARK_WORKSPACE}/p/${process.env.BARKPARK_PROJECT}`
-    : "";
+const SCOPE_WS = process.env.BARKPARK_WORKSPACE || "default";
+export const SCOPE = process.env.BARKPARK_PROJECT
+  ? `/w/${SCOPE_WS}/p/${process.env.BARKPARK_PROJECT}`
+  : "";
 
 /** Per-fetch timeout. Override per host via BARKPARK_FETCH_TIMEOUT_MS. */
 const TIMEOUT_MS = Number(process.env.BARKPARK_FETCH_TIMEOUT_MS) || 15_000;

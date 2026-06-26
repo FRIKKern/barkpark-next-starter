@@ -6,7 +6,8 @@ import {
 } from "@barkpark/core";
 import { DATASET } from "./config";
 
-const projectUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const projectUrl = process.env.NEXT_PUBLIC_API_URL ??
+  (process.env.VERCEL ? "https://api.barkpark.cloud" : "http://localhost:4000");
 
 /**
  * Server-side read token. Sent by `@barkpark/core` as `Authorization: Bearer`,
@@ -67,6 +68,8 @@ export function createClient(scope: ClientScope = {}): BarkparkClient {
  * whole app reads that project. Unset → the flat `/v1/...` back-compat path.
  */
 export const client: BarkparkClient = createClient({
-  workspace: process.env.BARKPARK_WORKSPACE,
+  workspace: process.env.BARKPARK_PROJECT
+    ? process.env.BARKPARK_WORKSPACE || "default"
+    : undefined,
   project: process.env.BARKPARK_PROJECT,
 });
