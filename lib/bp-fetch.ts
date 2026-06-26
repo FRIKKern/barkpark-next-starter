@@ -1,5 +1,6 @@
 import "server-only";
 import { Agent, fetch as keepAliveFetch } from "undici";
+import { staticModeActive, staticFetchJson } from "./static";
 
 /**
  * Persistent connection pool to the Barkpark API. Without it, every upstream
@@ -38,8 +39,7 @@ const bpDispatcher = new Agent({
  */
 
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ??
-  (process.env.VERCEL ? "https://api.barkpark.cloud" : "http://localhost:4000");
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 const TOKEN = process.env.BARKPARK_READ_TOKEN;
 
 /**
@@ -188,6 +188,7 @@ export async function bpFetchJson(
   url: string,
   init?: RequestInit,
 ): Promise<unknown> {
+  if (staticModeActive()) return staticFetchJson(url);
   const merged = withAuth(init);
   let lastErr: unknown;
   for (let i = 0; i <= RETRIES; i++) {

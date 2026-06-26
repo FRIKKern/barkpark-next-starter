@@ -1,4 +1,5 @@
 import type { BarkparkClient, BarkparkDocument } from "@barkpark/core";
+import { staticModeActive, staticDoc, staticDocsOfType } from "./static";
 
 /**
  * Inline content node (PortableDoc). Mirrors `Barkpark.PortableDoc.Render`'s
@@ -74,6 +75,7 @@ export function paperExcerpt(paper: PaperDocument): string | null {
 export async function fetchPapers(
   client: BarkparkClient,
 ): Promise<PaperDocument[]> {
+  if (staticModeActive()) return staticDocsOfType<PaperDocument>("paper");
   return client
     .docs<PaperDocument>("paper")
     .order("_updatedAt:desc")
@@ -86,6 +88,7 @@ export async function fetchPaperBySlug(
   client: BarkparkClient,
   slug: string,
 ): Promise<PaperDocument | null> {
+  if (staticModeActive()) return staticDoc<PaperDocument>("paper", slug);
   const bySlug = await client
     .docs<PaperDocument>("paper")
     .where("slug", "eq", slug)

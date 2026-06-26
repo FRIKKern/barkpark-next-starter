@@ -6,8 +6,7 @@ import {
 } from "@barkpark/core";
 import { DATASET } from "./config";
 
-const projectUrl = process.env.NEXT_PUBLIC_API_URL ??
-  (process.env.VERCEL ? "https://api.barkpark.cloud" : "http://localhost:4000");
+const projectUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 /**
  * Server-side read token. Sent by `@barkpark/core` as `Authorization: Bearer`,

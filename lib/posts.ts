@@ -1,4 +1,5 @@
 import type { BarkparkClient, BarkparkDocument } from "@barkpark/core";
+import { staticModeActive, staticDoc, staticDocsOfType } from "./static";
 
 export interface PostDocument extends BarkparkDocument {
   title?: string;
@@ -23,6 +24,7 @@ export function postSlug(post: PostDocument): string {
 export async function fetchPosts(
   client: BarkparkClient,
 ): Promise<PostDocument[]> {
+  if (staticModeActive()) return staticDocsOfType<PostDocument>("post");
   return client
     .docs<PostDocument>("post")
     .order("_updatedAt:desc")
@@ -35,6 +37,7 @@ export async function fetchPostBySlug(
   client: BarkparkClient,
   slug: string,
 ): Promise<PostDocument | null> {
+  if (staticModeActive()) return staticDoc<PostDocument>("post", slug);
   const bySlug = await client
     .docs<PostDocument>("post")
     .where("slug", "eq", slug)

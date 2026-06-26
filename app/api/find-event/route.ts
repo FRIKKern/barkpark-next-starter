@@ -9,8 +9,7 @@ import { DATASET } from "@/lib/config";
 export const runtime = "nodejs";
 
 import { SCOPE } from "@/lib/bp-fetch";
-const API_URL = process.env.NEXT_PUBLIC_API_URL ??
-  (process.env.VERCEL ? "https://api.barkpark.cloud" : "http://localhost:4000");
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 const TOKEN = process.env.BARKPARK_READ_TOKEN;
 // DATASET imported from lib/config (one source of truth, env-overridable).
 

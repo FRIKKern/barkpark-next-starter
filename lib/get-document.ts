@@ -2,6 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { client } from "./barkpark-client";
+import { staticModeActive, staticDoc } from "./static";
 import { bpAll, bpType } from "./bp-tags";
 
 /**
@@ -35,6 +36,7 @@ async function fetchByTypeSlug(
   type: string,
   slug: string,
 ): Promise<GenericDoc | null> {
+  if (staticModeActive()) return staticDoc<GenericDoc>(type, slug);
   const bySlug = await client
     .docs<GenericDoc>(type)
     .where("slug", "eq", slug)
