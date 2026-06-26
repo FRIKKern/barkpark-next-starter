@@ -69,22 +69,55 @@ export function staticFetchJson(url: string): unknown {
   return { ok: true, result: null };
 }
 
-/** Substring-filter the snapshot by the `q=` term so search feels alive. */
+/**
+ * Substring-filter the snapshot by the `q=` term.
+ *
+ * Critically, this REGENERATES the query-specific fields (`query`, `parsedQuery`)
+ * from the actual query and clears the baked `highlights` — otherwise the finder,
+ * which highlights `parsedQuery.terms`, would keep highlighting the snapshot's
+ * original query ("barkpark") for every search.
+ */
 function filterSearch(url: string): unknown {
-  let q = "";
+  let raw = "";
   try {
-    q = new URL(url, "http://x").searchParams.get("q") ?? "";
+    raw = new URL(url, "http://x").searchParams.get("q") ?? "";
   } catch {
     /* relative URL with no parseable query — treat as empty */
   }
-  q = q.trim().toLowerCase();
-  if (q.length < 2) return searchSnapshot;
-  const matched = DOCS.filter(
+  const q = raw.trim();
+  const snap = searchSnapshot as Record<string, unknown>;
+  const terms = q
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((t) => t.length >= 2);
+
+  // A blank/1-char q is "browse" — enumerate everything, no highlight.
+  if (q.length < 2) {
+    return {
+      ...snap,
+      query: q,
+      documents: DOCS,
+      count: DOCS.length,
+      parsedQuery: { prefixes: [], terms: [], phrases: [], excludes: [] },
+      highlights: {},
+      correctedTo: null,
+    };
+  }
+
+  const ql = q.toLowerCase();
+  const documents = DOCS.filter(
     (d) =>
       String(d.title ?? "")
         .toLowerCase()
-        .includes(q) || String(d._id).toLowerCase().includes(q),
+        .includes(ql) || String(d._id).toLowerCase().includes(ql),
   );
-  const documents = matched.length ? matched : DOCS;
-  return { ...(searchSnapshot as object), documents, count: documents.length };
+  return {
+    ...snap,
+    query: q,
+    documents,
+    count: documents.length,
+    parsedQuery: { prefixes: [], terms, phrases: [], excludes: [] },
+    highlights: {},
+    correctedTo: null,
+  };
 }
