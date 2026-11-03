@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import "@portable-doc/react/paper-surface.css";
 import "./globals.css";
 import { LiveBridge } from "@/components/live-bridge";
 import { StaticBanner } from "@/components/static-banner";

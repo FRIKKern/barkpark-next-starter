@@ -15,41 +15,21 @@ import {
 
 const PACK = new URL("./pack/goldens", import.meta.url).pathname;
 const REPORT = new URL("./next-starter.json", import.meta.url).pathname;
-const KNOWN_TYPES = new Set([
-  "action",
-  "asciicast",
-  "byline",
-  "callout",
-  "code",
-  "diagram",
-  "divider",
-  "eyebrow",
-  "figure",
-  "heading",
-  "image",
-  "ingress",
-  "list",
-  "paragraph",
-  "pullquote",
-  "section",
-  "sheet",
-  "table",
-]);
 
 function nodesOf(html: string): NodeList {
   const document = new Window().document;
   document.body.innerHTML = html;
   const wrapper = document.body.children.length === 1 ? document.body.firstElementChild : null;
-  return (wrapper?.classList.contains("flex")
+  return (wrapper?.classList.contains("flex") || wrapper?.classList.contains("bp-paper-surface")
     ? wrapper.childNodes
     : document.body.childNodes) as unknown as NodeList;
 }
 
 function judge(golden: { type: string; input: unknown; expectedHtml: string }) {
-  if (!KNOWN_TYPES.has(golden.type)) return MISSING;
   const actual = renderToStaticMarkup(
     createElement(PortableDoc, { blocks: [golden.input] } as never),
   );
+  if (actual.includes('class="bp-unknown-block"')) return MISSING;
   return diffShapes(shapeOf(nodesOf(actual)), shapeOf(nodesOf(golden.expectedHtml)));
 }
 
