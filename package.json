@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "conformance": "tsx conformance/next-starter.tsx && node --test conformance/conformance.test.mjs",
+    "conformance": "tsx conformance/next-starter.tsx && tsx --test conformance/conformance.test.mjs conformance/adapter.test.tsx",
     "conformance:write": "CONFORMANCE_WRITE=1 tsx conformance/next-starter.tsx",
+    "check:react-alpha": "node scripts/check-react-alpha.mjs",
     "new-project": "bash scripts/new-project.sh"
   },
   "dependencies": {
