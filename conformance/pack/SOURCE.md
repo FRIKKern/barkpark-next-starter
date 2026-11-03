@@ -1,8 +1,8 @@
 # PortableDoc conformance pack
 
-Synced from `FRIKKern/barkpark` commit `96cce88b565ccea8c82d49110503bd046ea7e0b6`.
+Synced from `FRIKKern/barkpark` commit `be59c5c2e3da1d867bd7c050ff7929e5f07859e4`.
 
 The checked-in pack is intentional: CI must exercise this host renderer against
 the same pinned inputs and normalizer that produced the committed report. Update
-`conformance.mjs`, `goldens/stamp.json`, and `goldens/blocks/*.golden.json`
-together when advancing the pin.
+`conformance.mjs` and the complete `goldens/` tree together when advancing the
+pin.
