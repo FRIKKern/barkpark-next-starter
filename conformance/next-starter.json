@@ -1,0 +1,426 @@
+{
+  "renderer": "next-starter",
+  "compare": "dom",
+  "pack_stamp": "1ca9ca01d368484f4e7aa39003f9fb065595d29745f785d823154762b362be0b",
+  "ran_at_sha": "e5ac67256a6382daaa07c880f851f64b43e1f529",
+  "rows": [
+    {
+      "type": "action",
+      "status": "fail",
+      "diff": [
+        "root > a.bp-button.bp-button--primary[0]: class {bg-zinc-900 dark:bg-zinc-100 dark:hover:bg-zinc-300 dark:text-zinc-900 font-medium hover:bg-zinc-700 inline-flex items-center px-4 py-2 rounded-md text-sm text-zinc-50 transition-colors w-fit} != {bp-button bp-button--primary}"
+      ]
+    },
+    {
+      "type": "api-endpoint",
+      "status": "missing"
+    },
+    {
+      "type": "arrayOf",
+      "status": "missing"
+    },
+    {
+      "type": "asciicast",
+      "status": "fail",
+      "diff": [
+        "root > figure[0]: <p> != <figure>"
+      ]
+    },
+    {
+      "type": "bar-chart",
+      "status": "missing"
+    },
+    {
+      "type": "blockquote",
+      "status": "missing"
+    },
+    {
+      "type": "byline",
+      "status": "fail",
+      "diff": [
+        "root > p.bp-role-byline[0]: class {text-sm text-zinc-500} != {bp-role-byline}",
+        "root > p.bp-role-byline[0]: 0 children [] != 1 [#text]"
+      ]
+    },
+    {
+      "type": "callout",
+      "status": "fail",
+      "diff": [
+        "root > div.bp-callout.bp-callout--info[0]: <aside> != <div>"
+      ]
+    },
+    {
+      "type": "card",
+      "status": "missing"
+    },
+    {
+      "type": "cards",
+      "status": "missing"
+    },
+    {
+      "type": "chart",
+      "status": "missing"
+    },
+    {
+      "type": "chat-approval",
+      "status": "missing"
+    },
+    {
+      "type": "chat-plan",
+      "status": "missing"
+    },
+    {
+      "type": "chat-question",
+      "status": "missing"
+    },
+    {
+      "type": "chat-thinking",
+      "status": "missing"
+    },
+    {
+      "type": "chat-todo",
+      "status": "missing"
+    },
+    {
+      "type": "chat-tool-diff",
+      "status": "missing"
+    },
+    {
+      "type": "code-tabs",
+      "status": "missing"
+    },
+    {
+      "type": "code",
+      "status": "fail",
+      "diff": [
+        "root > pre.bp-codeblock[0]: class {bg-zinc-100 dark:bg-zinc-900 overflow-x-auto p-4 rounded-lg text-sm} != {bp-codeblock}",
+        "root > pre.bp-codeblock[0]: style border=\"0\" missing",
+        "root > pre.bp-codeblock[0]: style border-radius=\"var(--bp-codeblock-radius, 0)\" missing",
+        "root > pre.bp-codeblock[0]: style font-family=\"var(--paper-font-mono, ui-monospace,Menlo,monospace)\" missing",
+        "root > pre.bp-codeblock[0]: style font-size=\"var(--bp-codeblock-size, 0.9rem)\" missing",
+        "root > pre.bp-codeblock[0]: style line-height=\"var(--bp-codeblock-lh, 1.5)\" missing",
+        "root > pre.bp-codeblock[0]: style margin=\"var(--bp-codeblock-margin, 1.2rem 0)\" missing",
+        "root > pre.bp-codeblock[0]: style overflow-x=\"auto\" missing",
+        "root > pre.bp-codeblock[0]: style padding=\"var(--bp-codeblock-pad, 0.9rem 1.1rem)\" missing",
+        "root > pre.bp-codeblock[0]: style white-space=\"pre\" missing",
+        "root > pre.bp-codeblock[0] > #text[0]: <code> != \"def hello do\n  :world\nend\""
+      ]
+    },
+    {
+      "type": "codelist",
+      "status": "missing"
+    },
+    {
+      "type": "columns",
+      "status": "missing"
+    },
+    {
+      "type": "composite",
+      "status": "missing"
+    },
+    {
+      "type": "criteria-progress",
+      "status": "missing"
+    },
+    {
+      "type": "diagram",
+      "status": "fail",
+      "diff": [
+        "root > figure.bp-diagram[0]: class {flex flex-col gap-2} != {bp-diagram}",
+        "root > figure.bp-diagram[0]: style border=\"1px solid\" missing",
+        "root > figure.bp-diagram[0]: style border-radius=\"4px\" missing",
+        "root > figure.bp-diagram[0]: style box-sizing=\"border-box\" missing",
+        "root > figure.bp-diagram[0]: style margin=\"var(--bp-air-figure, 1.6rem) 0 0\" missing",
+        "root > figure.bp-diagram[0]: style margin-inline=\"var(--bp-evidence-pull, 0px)\" missing",
+        "root > figure.bp-diagram[0]: style overflow-x=\"auto\" missing",
+        "root > figure.bp-diagram[0]: style padding=\"1.2rem\" missing",
+        "root > figure.bp-diagram[0]: style width=\"var(--bp-evidence-width, 100%)\" missing",
+        "root > figure.bp-diagram[0] > pre.mermaid[0]: class {bg-zinc-100 dark:bg-zinc-900 overflow-x-auto p-4 rounded-lg text-sm} != {mermaid}",
+        "root > figure.bp-diagram[0] > pre.mermaid[0] > #text[0]: <code> != \"graph TD; A[Ingest] --> B[Render] --> C[Publish]\"",
+        "root > figure.bp-diagram[0] > figcaption.bp-figcaption[1]: class {text-sm text-zinc-500} != {bp-figcaption}"
+      ]
+    },
+    {
+      "type": "diff",
+      "status": "missing"
+    },
+    {
+      "type": "divider",
+      "status": "fail",
+      "diff": [
+        "root > div.bp-section-divider[0]: <hr> != <div>"
+      ]
+    },
+    {
+      "type": "duel",
+      "status": "missing"
+    },
+    {
+      "type": "embed",
+      "status": "missing"
+    },
+    {
+      "type": "equation",
+      "status": "missing"
+    },
+    {
+      "type": "expandable",
+      "status": "missing"
+    },
+    {
+      "type": "eyebrow",
+      "status": "fail",
+      "diff": [
+        "root > p.bp-role-eyebrow[0]: class {font-medium text-xs text-zinc-400 tracking-widest uppercase} != {bp-role-eyebrow}"
+      ]
+    },
+    {
+      "type": "field-boolean",
+      "status": "missing"
+    },
+    {
+      "type": "field-color",
+      "status": "missing"
+    },
+    {
+      "type": "field-datetime",
+      "status": "missing"
+    },
+    {
+      "type": "field-image",
+      "status": "missing"
+    },
+    {
+      "type": "field-number",
+      "status": "missing"
+    },
+    {
+      "type": "field-reference",
+      "status": "missing"
+    },
+    {
+      "type": "field-select",
+      "status": "missing"
+    },
+    {
+      "type": "field-slug",
+      "status": "missing"
+    },
+    {
+      "type": "field-string",
+      "status": "missing"
+    },
+    {
+      "type": "field-text",
+      "status": "missing"
+    },
+    {
+      "type": "figure",
+      "status": "fail",
+      "diff": [
+        "root > figure[0]: class {flex flex-col gap-2} != {}",
+        "root > figure[0]: style box-sizing=\"border-box\" missing",
+        "root > figure[0]: style margin=\"var(--bp-air-figure, 1.6rem) 0 0\" missing",
+        "root > figure[0]: style margin-inline=\"var(--bp-evidence-pull, 0px)\" missing",
+        "root > figure[0]: style overflow-x=\"auto\" missing",
+        "root > figure[0]: style width=\"var(--bp-evidence-width, 100%)\" missing",
+        "root > figure[0] > p[0]: class {dark:text-zinc-300 leading-7 text-zinc-700} != {}",
+        "root > figure[0] > p[0] > #text[0]: <span> != \"The figure body.\"",
+        "root > figure[0] > figcaption.bp-figcaption[1]: class {text-sm text-zinc-500} != {bp-figcaption}"
+      ]
+    },
+    {
+      "type": "filetree",
+      "status": "missing"
+    },
+    {
+      "type": "footnote",
+      "status": "missing"
+    },
+    {
+      "type": "form",
+      "status": "missing"
+    },
+    {
+      "type": "gauge-list",
+      "status": "missing"
+    },
+    {
+      "type": "heading",
+      "status": "fail",
+      "diff": [
+        "root > h2[0]: class {font-semibold mt-8 text-2xl tracking-tight} != {}"
+      ]
+    },
+    {
+      "type": "heatmap",
+      "status": "missing"
+    },
+    {
+      "type": "image",
+      "status": "fail",
+      "diff": [
+        "root: 2 children [link,div.flex.flex-col.gap-4] != 1 [img]",
+        "root > img[0]: <link> != <img>"
+      ]
+    },
+    {
+      "type": "ingress",
+      "status": "fail",
+      "diff": [
+        "root > p.bp-role-ingress[0]: class {dark:text-zinc-300 leading-relaxed text-lg text-zinc-600} != {bp-role-ingress}",
+        "root > p.bp-role-ingress[0] > #text[0]: <span> != \"A lead paragraph that opens the article.\""
+      ]
+    },
+    {
+      "type": "lineage",
+      "status": "missing"
+    },
+    {
+      "type": "list",
+      "status": "fail",
+      "diff": [
+        "root > ul[0]: class {dark:text-zinc-300 flex flex-col gap-1.5 list-disc pl-6 text-zinc-700} != {}",
+        "root > ul[0] > li[0]: class {leading-7} != {}",
+        "root > ul[0] > li[1]: class {leading-7} != {}"
+      ]
+    },
+    {
+      "type": "localizedText",
+      "status": "missing"
+    },
+    {
+      "type": "note",
+      "status": "missing"
+    },
+    {
+      "type": "notes",
+      "status": "missing"
+    },
+    {
+      "type": "paper-links",
+      "status": "missing"
+    },
+    {
+      "type": "paragraph",
+      "status": "fail",
+      "diff": [
+        "root > p[0]: class {dark:text-zinc-300 leading-7 text-zinc-700} != {}",
+        "root > p[0] > #text[0]: <span> != \"A body paragraph with \"",
+        "root > p[0] > span[1]: style font-weight=\"bold\" missing",
+        "root > p[0] > span[1] > #text[0]: <strong> != \"bold emphasis\"",
+        "root > p[0] > #text[2]: <span> != \" inside it, \"",
+        "root > p[0] > a[3]: <span> != <a>",
+        "root > p[0] > #text[4]: <span> != \" and \"",
+        "root > p[0] > a[5]: class {dark:decoration-zinc-600 dark:text-zinc-100 decoration-zinc-300 font-medium hover:decoration-zinc-500 text-zinc-900 underline underline-offset-2} != {}",
+        "root > p[0] > a[5]: attr rel=\"noopener noreferrer\" extra",
+        "root > p[0] > a[5] > #text[0]: <span> != \"a link node\"",
+        "root > p[0] > #text[6]: <span> != \".\""
+      ]
+    },
+    {
+      "type": "pipeline",
+      "status": "missing"
+    },
+    {
+      "type": "pre-gate-badge",
+      "status": "missing"
+    },
+    {
+      "type": "pullquote",
+      "status": "fail",
+      "diff": [
+        "root > p.bp-role-pullquote[0]: <blockquote> != <p>"
+      ]
+    },
+    {
+      "type": "questionnaire",
+      "status": "missing"
+    },
+    {
+      "type": "roadmap",
+      "status": "missing"
+    },
+    {
+      "type": "route",
+      "status": "missing"
+    },
+    {
+      "type": "section",
+      "status": "fail",
+      "diff": [
+        "root > div[0]: <section> != <div>"
+      ]
+    },
+    {
+      "type": "sheet",
+      "status": "fail",
+      "diff": [
+        "root > table.bp-table[0]: <figure> != <table>"
+      ]
+    },
+    {
+      "type": "stage",
+      "status": "missing"
+    },
+    {
+      "type": "stat-grid",
+      "status": "missing"
+    },
+    {
+      "type": "stat",
+      "status": "missing"
+    },
+    {
+      "type": "stats",
+      "status": "missing"
+    },
+    {
+      "type": "status-legend",
+      "status": "missing"
+    },
+    {
+      "type": "steps",
+      "status": "missing"
+    },
+    {
+      "type": "table",
+      "status": "fail",
+      "diff": [
+        "root > table.bp-table[0]: <div> != <table>"
+      ]
+    },
+    {
+      "type": "tabs",
+      "status": "missing"
+    },
+    {
+      "type": "task-board",
+      "status": "missing"
+    },
+    {
+      "type": "task-detail",
+      "status": "missing"
+    },
+    {
+      "type": "task-list",
+      "status": "missing"
+    },
+    {
+      "type": "tasks",
+      "status": "missing"
+    },
+    {
+      "type": "terminal",
+      "status": "missing"
+    },
+    {
+      "type": "toc",
+      "status": "missing"
+    },
+    {
+      "type": "video",
+      "status": "missing"
+    }
+  ]
+}
